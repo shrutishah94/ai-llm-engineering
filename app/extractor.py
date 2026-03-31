@@ -52,7 +52,7 @@ def extract_entities(text):
         return {"error": "Invalid JSON", "raw": response}
 
 def extract_text_from_pdf(file_path):
-    file_path=r"C:\Users\Shruti\Documents\Personal development\ai-llm-engineering\ai-llm-engineering\ShrutiShah_Resume_4Yr.pdf"
+    file_path=r"resume.pdf"
     text = ""
     with pdfplumber.open(file_path) as pdf:
         for page in pdf.pages:
