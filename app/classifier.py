@@ -1,9 +1,10 @@
+from multiprocessing.spawn import prepare
 from app.llm_client import generate_response
-from app.tokenizer import safe_input
+from app.tokenizer import prepare_input
 
 def classify(text):
     system_prompt = "Classify text into categories."
-    text = safe_input(text, max_tokens=1200)
+    text = prepare_input(text)
 
     user_prompt = f"""
     Classify this text into one of:

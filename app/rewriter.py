@@ -1,8 +1,8 @@
 from app.llm_client import generate_response
-from app.tokenizer import safe_input
+from app.tokenizer import prepare_input
 
 def rewrite(text, tone="professional"):
-    text = safe_input(text, max_tokens=1200)
+    text = prepare_input(text)
     system_prompt = "Rewrite text based on tone."
 
     user_prompt = f"""

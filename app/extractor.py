@@ -1,7 +1,7 @@
 import json
 import pdfplumber
 from app.llm_client import generate_response
-from app.tokenizer import safe_input
+from app.tokenizer import prepare_input
 
 def _strip_markdown_json(response: str) -> str:
     cleaned = response.strip()
@@ -16,7 +16,7 @@ def _strip_markdown_json(response: str) -> str:
 
 
 def extract_entities(text):
-    text = safe_input(text, max_tokens=1200)
+    text = prepare_input(text)
     system_prompt = "Extract structured data in JSON format."
 
     user_prompt = f"""
@@ -52,7 +52,6 @@ def extract_entities(text):
         return {"error": "Invalid JSON", "raw": response}
 
 def extract_text_from_pdf(file_path):
-    file_path=r"resume.pdf"
     text = ""
     with pdfplumber.open(file_path) as pdf:
         for page in pdf.pages:

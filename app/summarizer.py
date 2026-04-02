@@ -1,9 +1,9 @@
 #For Text Summary
 from app.llm_client import generate_response
-from app.tokenizer import safe_input
+from app.tokenizer import prepare_input
 
 def summarize(text, style="bullet"):
-    text = safe_input(text, max_tokens=1200)
+    text = prepare_input(text)
 
     system_prompt = "You are a helpful assistant that summarizes text."
    
@@ -21,10 +21,16 @@ def summarize(text, style="bullet"):
     return generate_response(messages)
 
 def resumeSummary(text, style="bullet"):
-    text = safe_input(text, max_tokens=1200)
-    system_prompt = "You are a helpful reader that summarizes content."
+    text = prepare_input(text)
+    system_prompt = """You are a smart resume analyzer.
+    Rules:
+    - Give information about name, location and email address 
+    - Compute the total years of experience with usage of absolute from the given date ranges
+    - Merge similar points
+    - Do NOT explain steps unless asked
+    """
     user_prompt = f"""
-    Summarize the document in {style} format:
+    Compress this resume into a concise {style} summary (max 10-15 bullets total):
 
     {text}
     """
