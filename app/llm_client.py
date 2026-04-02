@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from openai import OpenAI
+from app.config import MAX_OUTPUT_TOKENS
 
 load_dotenv(override=True)
 
@@ -11,15 +12,16 @@ if not api_key:
 
 client = OpenAI(api_key=api_key)
 
-def generate_response(messages, temperature=0.3, max_tokens=500):
+def generate_response(messages, temperature=0.3):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=messages,
         temperature=temperature,
-        max_tokens=max_tokens,
+        #Output tokens layer
+        max_tokens=MAX_OUTPUT_TOKENS,
     )
-    print("Prompt tokens:", response.usage.prompt_tokens)
-    print("Completion tokens:", response.usage.completion_tokens)
+    print("Input tokens:", response.usage.prompt_tokens)
+    print("Output tokens:", response.usage.completion_tokens)
     print("Total tokens:", response.usage.total_tokens)
 
     return response.choices[0].message.content
