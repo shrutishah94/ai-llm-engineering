@@ -1,6 +1,7 @@
 #For Text Summary
-from app.llm_client import generate_response
-from app.tokenizer import prepare_input
+from app.models.llm_client import generate_response
+from app.tools.tokenizer import prepare_input
+
 
 def summarize(text, style="bullet"):
     text = prepare_input(text)

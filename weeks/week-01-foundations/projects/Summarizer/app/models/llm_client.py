@@ -1,8 +1,8 @@
 import os
 
+from configs.settings import MAX_OUTPUT_TOKENS
 from dotenv import load_dotenv
 from openai import OpenAI
-from app.config import MAX_OUTPUT_TOKENS
 
 load_dotenv(override=True)
 

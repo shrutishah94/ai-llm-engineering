@@ -6,8 +6,8 @@ sys.path.append(str(BASE_DIR.parent))
 
 file_path = BASE_DIR.parent / "data" / "Shruti Shah Resume.pdf"
 
-from app.extractor import extract_text_from_pdf, extract_entities
-from app.summarizer import resumeSummary
+from app.tools.extractor import extract_entities, extract_text_from_pdf
+from app.tools.summarizer import resumeSummary
 
 resume_text = extract_text_from_pdf(str(file_path))
 
