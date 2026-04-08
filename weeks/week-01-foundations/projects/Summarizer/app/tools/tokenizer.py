@@ -1,5 +1,6 @@
 import tiktoken
-from app.config import MAX_INPUT_TOKENS
+from configs.settings import MAX_INPUT_TOKENS
+
 
 def count_tokens(text, model="gpt-4o-mini"):
     encoding = tiktoken.encoding_for_model(model)

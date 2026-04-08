@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 
-from app.pipeline import content_format
+from app.orchestration.pipeline import content_format
 
 url = "https://www.linkedin.com/in/shruti189/?skipRedirect=true"
 result = content_format(url)

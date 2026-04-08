@@ -3,24 +3,20 @@
 Web Intelligence Pipeline: scrape website content, then summarize and extract structured entities with an LLM.
 More Projects to be added. 
 
-## Prerequisites
+## Setup
 
 - Python 3.12+
-- [uv](https://docs.astral.sh/uv/) (recommended) or pip
-
-## Setup (uv)
+- [uv](https://docs.astral.sh/uv/) recommended
 
 ```bash
-uv sync
+uv sync --group dev
 ```
 
-This creates/updates `.venv` and installs dependencies from `pyproject.toml` and `uv.lock`.
+## Portfolio Index
 
-## Run
-
-```bash
-uv run python examples/demo.py
-```
+| Week | Theme | Project(s) | Outcome |
+|---|---|---|---|
+| 01 | Foundations | `Summarizer` | Baseline NLP/LLM workflow + modular architecture |
 
 If your machine/proxy causes SSL certificate issues during scraping, pass `verify_ssl=False` when calling `analyze_website(...)` for local testing.
 

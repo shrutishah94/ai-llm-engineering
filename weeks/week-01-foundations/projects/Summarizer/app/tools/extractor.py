@@ -1,7 +1,9 @@
 import json
+
 import pdfplumber
-from app.llm_client import generate_response
-from app.tokenizer import prepare_input
+from app.models.llm_client import generate_response
+from app.tools.tokenizer import prepare_input
+
 
 def _strip_markdown_json(response: str) -> str:
     cleaned = response.strip()
