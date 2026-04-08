@@ -1,7 +1,6 @@
 import json
 
 import pdfplumber
-
 from app.models.llm_client import generate_response
 from app.tools.tokenizer import prepare_input
 
