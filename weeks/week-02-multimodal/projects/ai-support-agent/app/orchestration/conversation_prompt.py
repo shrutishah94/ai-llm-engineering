@@ -1,6 +1,7 @@
 from app.models.gpt_client import call_gpt
 from app.models.ollama_client import call_ollama
 
+
 class ConversationOrchestrator:
     def __init__(self, gpt_client, ollama_client, gpt_prompt, ollama_prompt):
         self.gpt_client = gpt_client

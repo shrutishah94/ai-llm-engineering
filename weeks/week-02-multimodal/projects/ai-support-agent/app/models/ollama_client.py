@@ -1,5 +1,6 @@
 from configs.config import ollama_model
 
+
 def call_ollama(client, messages, system_prompt, model=ollama_model):
     response = client.chat.completions.create(
         model=model,

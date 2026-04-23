@@ -1,5 +1,5 @@
-from configs.config import gpt_client, ollama_client, gpt_prompt, ollama_prompt
 from app.orchestration.conversation_prompt import ConversationOrchestrator
+from configs.config import gpt_client, gpt_prompt, ollama_client, ollama_prompt
 
 if __name__ == "__main__":
     orchestrator = ConversationOrchestrator(
