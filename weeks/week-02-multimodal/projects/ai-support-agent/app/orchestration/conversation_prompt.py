@@ -21,14 +21,14 @@ class ConversationOrchestrator:
             self.gpt_messages,
             self.gpt_system
         )
-        self.gpt_messages.append(gpt_reply)
+        self.ollama_messages.append(gpt_reply)
 
         ollama_reply = call_ollama(
             self.ollama_client,
-            self.gpt_messages,
+            self.ollama_messages,
             self.ollama_system
         )
-        self.ollama_messages.append(ollama_reply)
+        self.gpt_messages.append(ollama_reply)
 
         return gpt_reply, ollama_reply
 
@@ -49,8 +49,53 @@ orchestrator = ConversationOrchestrator(
     ollama_prompt
 )
     
-def gradio_wrapper(text):
-    conversation = orchestrator.run_conversation()
-    return "\n".join([f"{role}: {msg}" for role, msg in conversation])
+# def gradio_wrapper(text, turns):
+#     orchestrator.gpt_messages = [text or "Hi there"]
+#     orchestrator.ollama_messages = [text or "Hi"]
+#     conversation = orchestrator.run_conversation(turns=int(turns))
+#     return "\n".join([f"{role}: {msg}" for role, msg in conversation])
 
-gr.Interface(fn=gradio_wrapper, inputs="textbox", outputs="textbox", flagging_mode="never").launch()
+# gr.Interface(
+#     fn=gradio_wrapper,
+#     inputs=[
+#         gr.Textbox(label="Start message", value="Hi"),
+#         gr.Slider(minimum=1, maximum=5, step=1, value=3, label="Turns"),
+#     ],
+#     outputs="textbox",
+#     flagging_mode="never",
+# ).launch()
+
+def chat(message, history, turns):
+   
+    orchestrator.gpt_messages.append(message)
+    orchestrator.ollama_messages.append(message)
+
+    conversation = orchestrator.run_conversation(turns=int(turns))
+    formatted_conversation = []
+
+    gpt_reply, ollama_reply = orchestrator.run_turn()
+
+    for role, reply in conversation:
+        formatted_conversation.append(
+            f"{role}:\n{reply}"
+        )
+
+    return "\n\n-------------------\n\n".join(
+        formatted_conversation
+    )
+
+
+demo = gr.ChatInterface(
+    fn=chat,
+    additional_inputs=[
+        gr.Slider(
+            minimum=1,
+            maximum=5,
+            step=1,
+            value=3,
+            label="Turns",
+        )
+    ],
+    title="GPT vs Ollama Conversation",
+    chatbot=gr.Chatbot(height=500),
+).launch()
